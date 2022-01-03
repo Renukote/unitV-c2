@@ -1,20 +1,28 @@
 import { useState } from "react";
-import {nanoid} from 'nanoid';
+import { nanoid } from "nanoid";
 
 export const Input = ({ subFunc }) => {
   const [form, SetForm] = useState({
     title: "",
-    time: "",
+    time: 0,
     instruct: "",
     ingred: "",
   });
 
   const handleChange = (e) => {
-    SetForm({
-      ...form,
-      [e.target.name]: e.target.value,
-      id : nanoid(7)
-    });
+    if (e.target.name === "time") {
+      SetForm({
+        ...form,
+        [e.target.name]: Number(e.target.value),
+        id: nanoid(7),
+      });
+    } else {
+      SetForm({
+        ...form,
+        [e.target.name]: e.target.value,
+        id: nanoid(7),
+      });
+    }
   };
 
   return (
@@ -48,7 +56,7 @@ export const Input = ({ subFunc }) => {
         <label>Time to cook (in min)</label>
         <input
           name="time"
-          type="Number"
+          type="number"
           placeholder="Enter time"
           onChange={(e) => {
             handleChange(e);
